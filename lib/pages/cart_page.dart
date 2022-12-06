@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:grocery_shop/model/cart_model.dart';
 import 'package:provider/provider.dart';
 
@@ -9,12 +9,28 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Cart")),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+      ),
       body: Consumer<CartModel>(
         // consume the data in CartModel
         builder: (context, value, child) {
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                
+                child: Text(
+                  "My Cart",
+                  style: GoogleFonts.notoSerif(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: value.cartItems.length,
@@ -36,9 +52,9 @@ class CartPage extends StatelessWidget {
                               Text('\$' + value.cartItems[index][1]), // price
                           trailing: IconButton(
                               icon: const Icon(Icons.cancel),
-                              onPressed: () =>
-                                  Provider.of<CartModel>(context, listen: false)
-                                      .removeItemFromCart(index)),
+                              onPressed: () => Provider.of<CartModel>(context,
+                                      listen: false)
+                                  .removeItemFromCart(index)),
                         ),
                       ),
                     );
@@ -46,14 +62,13 @@ class CartPage extends StatelessWidget {
                 ),
               ),
 
-              // total + pay now 
+              // total + pay now
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color:  Colors.green[900]
-                  ),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.green[900]),
                   padding: const EdgeInsets.all(24),
                   width: double.infinity,
                   child: Row(
@@ -65,40 +80,36 @@ class CartPage extends StatelessWidget {
                           Text(
                             "Total Price",
                             style: TextStyle(
-                              color: Colors.green[100],),
-
+                              color: Colors.green[100],
                             ),
-                          
+                          ),
                           const SizedBox(
                             height: 8,
                           ),
-                          Text('\$${value.calculateTotal()}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                          ),),
-
+                          Text(
+                            '\$${value.calculateTotal()}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                       InkWell(
-                        onTap: () {
-                          
-                        },                        
+                        onTap: () {},
                         child: Container(
-                          decoration: BoxDecoration(                         
-                          borderRadius: BorderRadius.circular(8),
-                            color: Colors.green
-                            ) , 
-                          padding: const EdgeInsets.all(12),                        
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.green),
+                          padding: const EdgeInsets.all(12),
                           child: Row(
                             children: const [
                               Text(
-                                "Pay Now",                        
+                                "Pay Now",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 14,                          
-                                ), 
+                                  fontSize: 14,
+                                ),
                               ),
                               Icon(
                                 Icons.arrow_forward_ios,
